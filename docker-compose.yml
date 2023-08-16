@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+  lobby:
+    container_name: lobby
+    image: lobby-minecraft-realm
+    build:
+      context: build/realm
+      args:
+        WORLD: lobby
+    ports:
+      - 30066:25565
+  survival:
+    container_name: survival
+    image: survival-minecraft-realm
+    build:
+      context: build/realm
+      args:
+        WORLD: survival
+    ports:
+      - 30067:25565
+  creative:
+    container_name: creative
+    image: creative-minecraft-realm
+    build:
+      context: build/realm
+      args:
+        WORLD: creative
+    ports:
+      - 30068:25565
+  minigame:
+    container_name: minigame
+    image: minigame-minecraft-realm
+    build:
+      context: build/realm
+      args:
+        WORLD: minigame
+    ports:
+      - 30069:25565
+  velocity:
+    container_name: velocity
+    image: velocity-minecraft-proxy
+    build:
+      context: build/proxy
+    ports:
+      - 25565:25577
+    depends_on:
+      - lobby
+      - survival
+      - creative
+      - minigame
